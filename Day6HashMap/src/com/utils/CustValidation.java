@@ -1,5 +1,6 @@
 package com.utils;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 import com.code.Customer;
@@ -12,10 +13,9 @@ public class CustValidation {
 	
 	//method to parse and validate Serive plan
 	
-	private static void validateCustomer(String email,List<Customer> lst) throws ValuesMismatchException {
-		Customer c=new Customer(email);
-		if(lst.contains(c)) {
-			throw new ValuesMismatchException("Email ALready exists...");
+	private static void validateCustomer(String email,HashMap<String,Customer> hm) throws ValuesMismatchException {
+		if(hm.containsKey(email)) {
+			throw new ValuesMismatchException("Email Already exists...");
 		}
 	}
 	private static ServicePlan parseAndValidatePlan(String str) throws ValuesMismatchException,IllegalAccessException
@@ -34,18 +34,18 @@ public class CustValidation {
 		
 	}
 	
-	/*int custId, String name, String lastName, String email, double regAmt, LocalDate ld,String password
-			,ServicePlan sp */
+	/*String name, String lastName, String email, double regAmt, LocalDate dob,String password
+			,String role,ServicePlan sp*/
 	
 public static Customer finalAllCustomer(String name, String lastName, String email, double regAmt, String ld,String password
-			,String sp,List<Customer> lst) throws ValuesMismatchException,IllegalAccessException
+			,String sp,String role,String regisDate,HashMap<String,Customer> hm) throws ValuesMismatchException,IllegalAccessException
 	{
 		ServicePlan sp1=parseAndValidatePlan(sp);
 		LocalDate date=LocalDate.parse(ld);
 		validatePlanAmt(regAmt,sp1);
-		validateCustomer(email, lst);
+		validateCustomer(email, hm);
 		
-		return new Customer(name,lastName,email,regAmt,date,password,sp1);
+		return new Customer(name,lastName,email,regAmt,date,password,role,LocalDate.parse(regisDate), sp1);
 	}
 	
 }

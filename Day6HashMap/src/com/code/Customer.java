@@ -4,10 +4,12 @@ import java.time.LocalDate;
 public class Customer 
 {
 	private int custId;
-	private String name,lastName,email,password;
+	private String name,lastName,email,password,role;
 	private double regAmt;
-	private LocalDate ld;
+	private LocalDate dob;
 	private ServicePlan sp;
+	private LocalDate lastSubPaid;
+	private LocalDate registeredDate;
 	private static int idcnt;
 	
 	static
@@ -15,8 +17,8 @@ public class Customer
 		idcnt=100;
 	}
 
-	public Customer(String name, String lastName, String email, double regAmt, LocalDate ld,String password
-			,ServicePlan sp) {
+	public Customer(String name, String lastName, String email, double regAmt, LocalDate dob,String password
+			,String role, LocalDate registeredDate,ServicePlan sp) {
 		super();
 		
 		this.custId = idcnt;
@@ -24,12 +26,39 @@ public class Customer
 		this.lastName = lastName;
 		this.email = email;
 		this.regAmt = regAmt;
-		this.ld = ld;
+		this.dob = dob;
 		this.sp = sp;
 		this.password=password;
+		this.registeredDate=this.registeredDate;
+		this.lastSubPaid=LocalDate.parse(registeredDate.toString());
+		this.role =role;
 		idcnt++;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public LocalDate getLastSubPaid() {
+		return lastSubPaid;
+	}
+
+	public void setLastSubPaid(LocalDate lastSubPaid) {
+		this.lastSubPaid = lastSubPaid;
+	}
+
+	public LocalDate getRegisteredDate() {
+		return registeredDate;
+	}
+
+	public void setRegisteredDate(LocalDate registeredDate) {
+		this.registeredDate = registeredDate;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -68,12 +97,17 @@ public class Customer
 
 	
 	
+	
+	
+
 	@Override
 	public String toString() {
 		return "Customer [custId=" + custId + ", name=" + name + ", lastName=" + lastName + ", email=" + email
-				+ ", password=" + password + ", regAmt=" + regAmt + ", ld=" + ld + ", sp=" + sp + "]";
+				+ ", password=" + password + ", role=" + role + ", regAmt=" + regAmt + ", dob=" + dob + ", sp=" + sp
+				+ ", lastSubPaid=" + lastSubPaid + ", registeredDate=" + registeredDate + "]";
 	}
 
+	@Override
 	public boolean equals(Object obj)
 	{
 		if(obj instanceof Customer)
@@ -84,6 +118,8 @@ public class Customer
 		}
 		return false;
 	}
+	
+	
 	
 	
 	
